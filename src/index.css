@@ -1,0 +1,207 @@
+@import "tailwindcss";
+@import "react-datepicker/dist/react-datepicker.css";
+
+/* ==========================================================
+   THEME SYSTEM — light, neutral, professional defaults.
+   All values are overridden at runtime by ThemeProvider.
+   ========================================================== */
+
+:root {
+  /* Brand */
+  --color-primary: #2563eb;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-soft: #eff6ff;
+  --color-secondary: #111827;
+  --color-accent: #0ea5e9;
+
+  /* Surfaces */
+  --color-bg: #f8fafc;
+  --color-card: #ffffff;
+  --color-sidebar: #ffffff;
+  --color-sidebar-text: #4b5563;
+  --color-sidebar-active: #eff6ff;
+  --color-sidebar-active-text: #2563eb;
+  --color-header: #ffffff;
+
+  /* Text */
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
+
+  /* Status */
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+  --color-info: #0ea5e9;
+
+  /* Radius & shadow */
+  --radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f172a;
+  --color-card: #1e293b;
+  --color-sidebar: #1e293b;
+  --color-sidebar-text: #cbd5e1;
+  --color-sidebar-active: rgba(255,255,255,0.05);
+  --color-sidebar-active-text: #ffffff;
+  --color-header: #1e293b;
+
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: #334155;
+  --color-border-strong: #475569;
+  --color-primary-soft: rgba(37, 99, 235, 0.15);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+}
+
+* { box-sizing: border-box; }
+
+/* Utility helpers driven by CSS variables */
+.bg-app { background: var(--color-bg); }
+.bg-card { background: var(--color-card); }
+.bg-sidebar { background: var(--color-sidebar); }
+.bg-header { background: var(--color-header); }
+.bg-primary { background: var(--color-primary); }
+.bg-primary-soft { background: var(--color-primary-soft); }
+.text-primary { color: var(--color-primary); }
+.text-main { color: var(--color-text); }
+.text-muted { color: var(--color-text-muted); }
+.text-sidebar { color: var(--color-sidebar-text); }
+.border-app { border-color: var(--color-border); }
+.border-strong { border-color: var(--color-border-strong); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* Focus */
+:where(button, input, select, textarea, a):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--color-border) 0px, var(--color-border-strong) 40px, var(--color-border) 80px);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 6px;
+}
+
+/* Toast animation */
+@keyframes slideInRight {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+.toast-in { animation: slideInRight 220ms ease-out; }
+
+/* ==========================================================
+   REACT-DATEPICKER OVERRIDES — match our theme
+   ========================================================== */
+.react-datepicker-wrapper { width: 100%; }
+.react-datepicker__input-container input {
+  width: 100%;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-size: 14px;
+  color: var(--color-text);
+}
+.react-datepicker__input-container input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-soft);
+}
+.react-datepicker {
+  font-family: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  color: var(--color-text);
+  box-shadow: var(--shadow-md);
+}
+.react-datepicker__header {
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+.react-datepicker__current-month,
+.react-datepicker__day-name,
+.react-datepicker__day {
+  color: var(--color-text);
+}
+.react-datepicker__day-name { color: var(--color-text-muted); }
+.react-datepicker__day:hover { background: var(--color-primary-soft); }
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__day--keyboard-selected {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+.react-datepicker__triangle { display: none; }
+.react-datepicker__navigation-icon::before {
+  border-color: var(--color-text-muted);
+}
+
+/* ==========================================================
+   REACT-DATA-TABLE-COMPONENT — theme normalization
+   ========================================================== */
+.rdt_Table {
+  background: var(--color-card) !important;
+}
+.rdt_TableHeadRow {
+  background: var(--color-bg) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  color: var(--color-text-muted) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  font-size: 11px !important;
+  letter-spacing: 0.03em;
+  min-height: 44px !important;
+}
+.rdt_TableRow {
+  background: var(--color-card) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  color: var(--color-text) !important;
+  font-size: 14px !important;
+  min-height: 56px !important;
+}
+.rdt_TableRow:hover {
+  background: var(--color-primary-soft) !important;
+  cursor: pointer;
+}
+.rdt_Pagination {
+  background: var(--color-card) !important;
+  color: var(--color-text-muted) !important;
+  border-top: 1px solid var(--color-border) !important;
+}
+.rdt_Pagination button {
+  fill: var(--color-text-muted) !important;
+}
+.rdt_Pagination button:disabled {
+  opacity: 0.35;
+}
